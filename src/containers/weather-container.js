@@ -6,7 +6,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorIndicator from '../components/error-indicator';
 import { getWeatherData } from '../store/actions';
 import WeatherList from '../components/weather-list';
-import Modal from '../components/modal';
+// import Modal from '../components/modal';
+import Modal from '@material-ui/core/Modal';
 import ModalBody from '../components/modal-body';
 
 const WeatherContainer = (props) => {
@@ -19,7 +20,9 @@ const WeatherContainer = (props) => {
     } = props;
 
     const [ isOpen, setIsOpen ] = useState(false);
-    const [ dataModal, setDataModal ] = useState({ name: '', coord: '' });
+    const [ cityWeatherData, setCityWeatherData ] = useState({ name: '', coord: { lat: '', lon: '' } });
+
+    const { list } = weatherData;
 
     useEffect(() => { 
         getWeatherHandler()
@@ -29,7 +32,7 @@ const WeatherContainer = (props) => {
     const errorMessage = weatherError ? <ErrorIndicator /> : null;
 
     const hasData = !(weatherLoading || weatherError);
-    const content = hasData ? <WeatherList list={weatherData.list} setIsOpen={setIsOpen} setDataModal={setDataModal} /> : null;
+    const content = hasData ? <WeatherList list={list} setIsOpen={setIsOpen} setDataModal={setCityWeatherData} /> : null;
 
     return (
         <div className="">
@@ -37,10 +40,19 @@ const WeatherContainer = (props) => {
                 { spinner }
                 { errorMessage }
                 { content }  
-                
-                <Modal title={dataModal.name} isOpen={isOpen} onCancel={setIsOpen}>
-                    <ModalBody dataModal={dataModal} />        
+
+                <Modal
+                    open={setIsOpen}
+                    onClose={setIsOpen}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                >
+                    <ModalBody data={cityWeatherData.coord} />
                 </Modal>
+                
+                {/* <Modal title={cityWeatherData.name} isOpen={isOpen} onCancel={setIsOpen}>
+                    <ModalBody data={cityWeatherData.coord} />        
+                </Modal> */}
             </div>
         </div>
     )

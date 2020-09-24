@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { Component, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ErrorIndicator from '../error-indicator';
-import WeatherCityList from '../weather-city-list';
+import WeatherTable from '../weather-table';
 import { getWeatherCityData } from '../../store/actions';
 
 const ModalBody = (props) => {
@@ -25,7 +25,7 @@ const ModalBody = (props) => {
     const errorMessage = weatherCityError ? <ErrorIndicator /> : null;
 
     const hasData = !(weatherCityLoading || weatherCityError);
-    const content = hasData ? <WeatherCityList data={weatherCityData}  /> : null;
+    const content = hasData ? <WeatherTable data={weatherCityData}  /> : null;
 
     return (
         <>  

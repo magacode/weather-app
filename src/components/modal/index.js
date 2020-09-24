@@ -1,3 +1,3 @@
-import Modal from './modal';
+import TransitionsModal from './modal';
 
-export default Modal;
+export default TransitionsModal;

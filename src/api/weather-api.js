@@ -3,12 +3,12 @@ import API from '../utils/axios-settings';
 class WeatherApi {
 
     getWeatherData = async () => { 
-        const addr = `/group?id=524901,703448,2643743&appid=e23bbc433667f72f6849a5ec44196865`;
+        const addr = `/group?id=524901,703448,2643743&lang=ru&units=metric&appid=b8dd12b10a5e9b631f1d9b511e5e36b3`;
         return await API().get(addr);
     };
 
     getWeatherCityData = async ({ lat, lon }) => { 
-        const addr = `/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&lang=ru&units=metric&appid=e23bbc433667f72f6849a5ec44196865`;
+        const addr = `/onecall?lat=${lat}&lon=${lon}&lang=ru&units=metric&appid=b8dd12b10a5e9b631f1d9b511e5e36b3`;
         return await API('city').get(addr);
     };
 

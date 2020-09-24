@@ -6,8 +6,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorIndicator from '../components/error-indicator';
 import { getWeatherData } from '../store/actions';
 import WeatherList from '../components/weather-list';
-// import Modal from '../components/modal';
-import Modal from '@material-ui/core/Modal';
+import TransitionsModal from '../components/modal';
+// import Modal from '@material-ui/core/Modal';
 import ModalBody from '../components/modal-body';
 
 const WeatherContainer = (props) => {
@@ -21,6 +21,14 @@ const WeatherContainer = (props) => {
 
     const [ isOpen, setIsOpen ] = useState(false);
     const [ cityWeatherData, setCityWeatherData ] = useState({ name: '', coord: { lat: '', lon: '' } });
+
+    const handleOpen = () => {
+        setIsOpen(true);
+      };
+    
+    const handleClose = () => {
+        setIsOpen(false);
+    };
 
     const { list } = weatherData;
 
@@ -41,18 +49,7 @@ const WeatherContainer = (props) => {
                 { errorMessage }
                 { content }  
 
-                <Modal
-                    open={setIsOpen}
-                    onClose={setIsOpen}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                >
-                    <ModalBody data={cityWeatherData.coord} />
-                </Modal>
-                
-                {/* <Modal title={cityWeatherData.name} isOpen={isOpen} onCancel={setIsOpen}>
-                    <ModalBody data={cityWeatherData.coord} />        
-                </Modal> */}
+                <TransitionsModal isOpen={isOpen} isClose={handleClose} data={cityWeatherData} />
             </div>
         </div>
     )
